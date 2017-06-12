@@ -1,3 +1,6 @@
+* {
+  transition: .1s;
+}
 body {
   background: black;
   font-family: 'Slabo 13px', serif;
