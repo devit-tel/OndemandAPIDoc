@@ -31,11 +31,12 @@
       <h2>Sendit On-demand API Document</h2>
       <h4 class="subtitle">Version 2.0</h4>
       <p>Sendit’s client who need to push the order to the system via API, can use the following information to create an order directly to our service and the order will appear on the client’s order history online.</p>
-      <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a></b></p>
-      <div class="seperator"></div>
+      <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a>, <a href="#Answers">Answers API</a></b></p>
       <a name="Calculate"></a>
+      <div class="seperator"></div>
       <h2>Calculate API</h2>
       <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>POST</b></p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr class="valign-middle">
@@ -182,10 +183,11 @@
   }
 }</code>
       </pre>
-      <div class="seperator"></div>
       <a name="CreateOrder"></a>
+      <div class="seperator"></div>
       <h2>Create Order API</h2>
       <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>POST</b></p>
       <div class="table-responsive">
         <table class="table table-striped">
           <tr class="valign-middle">
@@ -239,16 +241,300 @@
   }
 }</code>
       </pre>
+      <a name="CancelOrder"></a>
+      <div class="seperator"></div>
+      <h2>Cancel Order API</h2>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>DELETE</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "message": "Order {ORDER_ID} is now canceled!"
+  }
+}</code>
+      </pre>
+      <a name="Tracking"></a>
+      <div class="seperator"></div>
+      <h2>Tracking API</h2>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>PUT</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "status": 2,
+      "statusMessage": "In Progress",
+      "assignments": [
+        {
+          "id": 32290,
+          "status": 2,
+          "statusMessage": "In Progress",
+          "job": [
+            {
+              "id": 68803,
+              "status": 1,
+              "statusMessage": "Assigned"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code>
+      </pre>
+      <a name="Answers"></a>
+      <div class="seperator"></div>
+      <h2>Pickup Answers API</h2>
+      <h4 class="subtitle">Description</h4>
+      <p>This API is for customer who want to list Answers for Sendit's driver to answer when choose not to go prefer shop</p>
+      <h3>List Answers</h3>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>GET</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "pickupAnswer": [{
+      "id": 1,
+      "answer": "ร้านไกลกว่า"
+    }, {
+      "id": 2,
+      "answer": "ร้านปิด"
+    }, {
+      "id": 3,
+      "answer": "ติดต่อไม่ได้"
+    }]
+  }
+}</code>
+      </pre>
+      <h3>Create Answer</h3>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>POST</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Request</h4>
+      <pre>
+        <code class="json">{
+  "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
+}</code>
+      </pre>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "pickupAnswer": [{
+      "id": 4,
+      "answer": "สินค้าไม่ครบ"
+    }, {
+      "id": 5,
+      "answer": "ราคาไม่ตรง"
+    }]
+  }
+}</code>
+      </pre>
+      <h3>Update Answer</h3>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>PUT</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Request</h4>
+      <pre>
+        <code class="json">{
+  "pickupAnswer": "สินค้าไม่มี"
+}</code>
+      </pre>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "pickupAnswer": {
+      "id": 4,
+      "answer": "สินค้าไม่ครบ"
+    }
+  }
+}</code>
+      </pre>
+      <h3>Delete Answer</h3>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>DELETE</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
+  }
+}</code>
+      </pre>
+
       <div class="seperator"></div>
       <p>For further information and/or if you have a question, please contact <a href="dev@sendit.asia">dev@sendit.asia</a>.</p>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-  // window._gaq = [['_setAccount','UA-72828936-3'],['_trackPageview'],['_trackPageLoadTime']]
-  // Modernizr.load({
-  //   load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-  // })
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84477134-2', 'auto');
+  ga('send', 'pageview');
+
   hljs.initHighlightingOnLoad();
 </script>
 <!--[if lt IE 7 ]>
