@@ -1,0 +1,629 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>Ondemand API Doc 2.0</title>
+  <meta name="author" content="Sittipong HAUS">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,500|Slabo+13px" rel="stylesheet">
+  <link rel="stylesheet" href="./default.css" />
+  <link rel="stylesheet" href="./table.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <link rel="stylesheet" href="./highlightjs/styles/railscasts.css" />
+  <script src="./highlightjs/highlight.pack.js"></script>
+</head>
+<body>
+<div id="container">
+  <div id="intro">
+    <div class="content">
+      <img src="./logo@2x.png" alt="Sendit" height="30" />
+      <h1>On-demand API Doc</h1>
+    </div>
+  </div>
+  <div id="content">
+    <div class="content">
+      <h2>Sendit On-demand API Document</h2>
+      <h4 class="subtitle">Version 2.0</h4>
+      <p>Sendit’s client who need to push the order to the system via API, can use the following information to create an order directly to our service and the order will appear on the client’s order history online.</p>
+      <p><b>Jump to <a href="#Status">Status Definition</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a></b></p>
+      <a name="Status"></a>
+      <div class="seperator"></div>
+      <h2>Status Definition</h2>
+      <h4 class="subtitle">Order / Assignment / Job</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Status Code</b></th>
+              <th><b>Description</b></th>
+              <th><b>Apply to</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>UNASSIGNED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>ASSIGNED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>IN_PROGRESS</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>PARTIALLY_COMPLETE</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>COMPLETED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>FAILED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>CANCELLED</td>
+            <td>Job</td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Parcel</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Status Code</b></th>
+              <th><b>Description</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>UNASSIGNED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>ACCEPTED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>DELIVERED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>FAILED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>CANCELLED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>DECLINED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>LOGISTIC_CENTRE</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">7</td>
+            <td>PICKED_UP</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">8</td>
+            <td>DISCARDED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">9</td>
+            <td>WE_BROKE_IT</td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Service Type</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Service Code</b></th>
+              <th><b>Description</b></th>
+              <th><b>Remark</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>ROUND_TRIP</td>
+            <td>Will create last job with type "return_sender"</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>DOCUMENT_PROCESSING</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>MAILING_SERVICE</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>PURCHASE_SERVICE</td>
+            <td>Need to add "round trip"</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>CASH_ON_DELIVERY</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>FOOD_DELIVERY</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>ID_APPROVAL</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">7</td>
+            <td>NO_SERVICE</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+      <a name="CreateOrder"></a>
+      <div class="seperator"></div>
+      <h2>Create Order API</h2>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>POST</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/customer/orders</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/customer/orders</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Request</h4>
+      <pre>
+        <code class="json">{
+  "optimize": true,
+  "pickupAt": "04/25/2018 5:49 AM",
+    "assignments": [
+    {
+      "pickupAddress": {
+        "buildingName": "Richmond Office Building",
+        "streetNumber": "",
+        "streetName": "สุขุมวิท 26",
+        "subDistrict": "แขวง คลองตัน",
+        "district": "เขต คลองเตย",
+        "city": "Bangkok",
+        "province": "Bangkok",
+        "postcode": "10120",
+        "county": "Thailand",
+        "lat": 13.7230702,
+        "long": 100.569514
+      },
+      "note": "Note goes here",
+      "name": "Sender Name",
+      "email": "sender@email.com",
+      "phone": "0953676429",
+      "jobs": [
+        {
+          "deliveryAddress": {
+            "buildingName": "CRC Tower",
+            "streetNumber": "",
+            "streetName": "Witthayu Road",
+            "subDistrict": "Lumphini",
+            "district": "Pathum Wan",
+            "city": "Bangkok",
+            "province": "Bangkok",
+            "postcode": "10330",
+            "county": "Thailand",
+            "lat": 13.739104,
+            "long": 100.5479365
+          },
+          "parcels": [
+            {
+              "recipient": "Recipient name",
+              "phone": "020170324#302",
+              "note": "Instuction to get there or other notes",
+              "services": [
+                {
+                  "type": 0
+                },
+                {
+                  "type": 4,
+                  "data": {
+                    "price": 400
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+      </pre>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+    "success": true,
+    "result": {
+        "optimize": true,
+        "pickupAt": "04/25/2018 5:49 AM",
+        "assignments": [
+            {
+                "note": "Note goes here",
+                "name": "Sender Name",
+                "email": "sender@email.com",
+                "phone": "0953676429",
+                "jobs": [
+                    {
+                        "deliveryAddress": {
+                            "buildingName": "CRC Tower",
+                            "streetNumber": "",
+                            "streetName": "Witthayu Road",
+                            "subDistrict": "Lumphini",
+                            "district": "Pathum Wan",
+                            "city": "Bangkok",
+                            "province": "Bangkok",
+                            "postcode": "10330",
+                            "county": "Thailand",
+                            "lat": 13.739104,
+                            "long": 100.5479365,
+                            "id": 14663
+                        },
+                        "parcels": [
+                            {
+                                "recipient": "Recipient name",
+                                "phone": "020170324#302",
+                                "note": "Instuction to get there or other notes",
+                                "services": [
+                                    {
+                                        "type": 0,
+                                        "id": 22463
+                                    },
+                                    {
+                                        "type": 4,
+                                        "data": {
+                                            "price": 400
+                                        },
+                                        "id": 22464
+                                    }
+                                ],
+                                "code": "P0000088-168",
+                                "id": 16293
+                            }
+                        ],
+                        "beforeOptimizeIndex": 0,
+                        "distance": 4387,
+                        "duration": 1188,
+                        "polyline": "ehwrAmnydRaAYQGgA[iA]a@Ka@MCAC?C@A?A@A@A@u@pBa@lAA@A?sBm@ICCAGCEAs@Wg@QA?YKMEo@UECe@QOGq@WKESIAAYKA?QG?AC?aA_@QEOGi@SEAECUIYKOGEAQEKE[Ka@OMEME??ILKNa@p@W`@GHQXCDQX]f@[h@GHo@`A]h@?@MPm@~@KPMRQVABOVc@r@g@v@MTW`@MRMROVOTOVMR]h@u@pASZIL_@f@MROTKNKNQXGHMPMPcAbBeAbBOVOVCBCDUZQX[d@a@n@i@z@EJSXGJY`@?@U^w@hAKNEHS^U\\SXOVQVU^sAtBcA~AIJOXMPIJWb@GJEDCFILIJMTMRGF[f@Yd@U^IJa@p@c@p@_@l@_@l@OXGHi@|@GH]j@SXSXABABEHS\\[h@U\\KL[f@EHGJUZSXEHIHMPILc@p@CDEDADCBMROVKRU^S\\_@x@EJQf@CFEJ??M`@_@pACLMf@G^ETALQ~AO~AAFCLKdAAFABAF?F???@CNIn@ANK~@Gl@ABGn@Gj@Cd@OjAMpAEh@?B??N@TB\\Dh@Dh@F`@DB?d@FR@XDRBNBB?lALh@FpAJb@Dj@HbAH~@J~@J??BS@CBAFBBA@C?S??D@@?BA@?BA@?BA@A@A@ABA@C@C?A@C?A@C?C?A?C?AAC?CAAACAAAAACAA??CAAAAAC?AAC?C?",
+                        "calculations": {
+                            "0": {
+                                "actions": [
+                                    {
+                                        "event": "SEQUENCE",
+                                        "eventValue": 0,
+                                        "originalPrice": 0,
+                                        "change": 50,
+                                        "recalculateCount": 0
+                                    },
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4387,
+                                        "originalPrice": 50,
+                                        "change": 43.87,
+                                        "recalculateCount": 0
+                                    },
+                                    {
+                                        "event": "SERVICE",
+                                        "eventValue": "CASH_ON_DELIVERY",
+                                        "originalPrice": 93.87,
+                                        "change": 25,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 118.87
+                            },
+                            "1": {
+                                "actions": [
+                                    {
+                                        "event": "SEQUENCE",
+                                        "eventValue": 0,
+                                        "originalPrice": 0,
+                                        "change": 0,
+                                        "recalculateCount": 0
+                                    },
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4387,
+                                        "originalPrice": 0,
+                                        "change": 13.161,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 13.161
+                            },
+                            "2": {
+                                "actions": [
+                                    {
+                                        "event": "SEQUENCE",
+                                        "eventValue": 0,
+                                        "originalPrice": 0,
+                                        "change": 20,
+                                        "recalculateCount": 0
+                                    },
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4387,
+                                        "originalPrice": 20,
+                                        "change": 21.935,
+                                        "recalculateCount": 0
+                                    },
+                                    {
+                                        "event": "SERVICE",
+                                        "eventValue": "CASH_ON_DELIVERY",
+                                        "originalPrice": 41.935,
+                                        "change": 20,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 61.935
+                            }
+                        },
+                        "id": 19889
+                    },
+                    {
+                        "deliveryAddress": {
+                            "long": 100.569514,
+                            "lat": 13.7230702,
+                            "county": "Thailand",
+                            "postcode": "10120",
+                            "province": "Bangkok",
+                            "city": "Bangkok",
+                            "district": "เขต คลองเตย",
+                            "subDistrict": "แขวง คลองตัน",
+                            "streetName": "สุขุมวิท 26",
+                            "streetNumber": "",
+                            "buildingName": "Richmond Office Building",
+                            "id": 14664
+                        },
+                        "parcels": [
+                            {
+                                "recipient": "Recipient name",
+                                "phone": "020170324#302",
+                                "note": "Instuction to get there or other notes",
+                                "services": [
+                                    {
+                                        "type": 0,
+                                        "id": 22463
+                                    },
+                                    {
+                                        "type": 4,
+                                        "data": {
+                                            "price": 400
+                                        },
+                                        "id": 22464
+                                    }
+                                ],
+                                "code": "P0000088-168",
+                                "id": 16293
+                            }
+                        ],
+                        "type": 1,
+                        "beforeOptimizeIndex": 1,
+                        "distance": 4902,
+                        "duration": 844,
+                        "polyline": "slzrA{dudRA?C?A?C?A@C?A@C@A@CBA@A@AB?@AB?@AB?B?@?B?B?@??[VGDEBG@G?KAKC[I??CNCN??~@J~@Jb@D`@DR@N@VBJ@j@DVB`@D`@B??HJFH|@Hz@J??N@dDXPBH@??N@lD^\\@z@DTLb@DXD`@?P@LB??vGl@tDb@??dK|@??zCX??@OzCZ|BTj@RTBTBn@HTB??r@UB?PGLELEFEFQ^mATu@Rk@@GRk@Pm@HUHSRq@DOb@wAp@wBDMDMRo@Ne@HWHWFQJ]DMDI@ADMNg@L_@J]BIDOBGL_@L_@La@Pk@BIBG?AJ]Pi@Pg@L]Na@???EDIBIBKLa@FUFSDQDQDSBGPi@FMFODKDODMPk@Pm@HYJYV{@BKDMXw@BI@GFUFUL_@J_@DMDOLa@L_@N_@HYJYLa@@IJWL]FUFQHWX}@XaAJ[@GFOPo@Rq@Pm@\\kABIBIFU@IBI@CDK?AFQFSZ}@@EVo@HUDMNc@@E@KPk@L_@La@DODOLa@Ne@\\cALa@FYDMBODWBW@U?M@G?Q?QAUE]G]EOEMQo@EKW{@M_@[{@[_AEUAS?AAKAI?W?A?I?IBM@GBGDKJWBIBEHYJ[BGHYJ_@HU@GL_@JWXy@@EBGJ_@Nm@Lg@FU??YKwBi@mCo@iDaAmA[m@KMCGCKCc@M]IGAECs@Sg@My@WMEMC",
+                        "calculations": {
+                            "0": {
+                                "actions": [
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4902,
+                                        "originalPrice": 0,
+                                        "change": 24.51,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 24.51
+                            },
+                            "1": {
+                                "actions": [
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4902,
+                                        "originalPrice": 0,
+                                        "change": 7.353,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 7.353
+                            },
+                            "2": {
+                                "actions": [
+                                    {
+                                        "event": "DISTANCE",
+                                        "eventValue": 4902,
+                                        "originalPrice": 0,
+                                        "change": 12.255,
+                                        "recalculateCount": 0
+                                    }
+                                ],
+                                "price": 12.255
+                            }
+                        },
+                        "id": 19890
+                    }
+                ],
+                "polyline": "ehwrAmnydRaAYQGgA[iA]a@Ka@MCAC?C@A?A@A@A@u@pBa@lAA@A?sBm@ICCAGCEAs@Wg@QA?YKMEo@UECe@QOGq@WKESIAAYKA?QG?AC?aA_@QEOGi@SEAECUIYKOGEAQEKE[Ka@OMEME??ILKNa@p@W`@GHQXCDQX]f@[h@GHo@`A]h@?@MPm@~@KPMRQVABOVc@r@g@v@MTW`@MRMROVOTOVMR]h@u@pASZIL_@f@MROTKNKNQXGHMPMPcAbBeAbBOVOVCBCDUZQX[d@a@n@i@z@EJSXGJY`@?@U^w@hAKNEHS^U\\SXOVQVU^sAtBcA~AIJOXMPIJWb@GJEDCFILIJMTMRGF[f@Yd@U^IJa@p@c@p@_@l@_@l@OXGHi@|@GH]j@SXSXABABEHS\\[h@U\\KL[f@EHGJUZSXEHIHMPILc@p@CDEDADCBMROVKRU^S\\_@x@EJQf@CFEJ??M`@_@pACLMf@G^ETALQ~AO~AAFCLKdAAFABAF?F???@CNIn@ANK~@Gl@ABGn@Gj@Cd@OjAMpAEh@?B??N@TB\\Dh@Dh@F`@DB?d@FR@XDRBNBB?lALh@FpAJb@Dj@HbAH~@J~@J??BS@CBAFBBA@C?S??D@@?BA@?BA@?BA@A@A@ABA@C@C?A@C?A@C?C?A?C?AAC?CAAACAAAAACAA??CAAAAAC?AAC?C???A?C?A?C?A@C?A@C@A@CBA@A@AB?@AB?@AB?B?@?B?B?@??[VGDEBG@G?KAKC[I??CNCN??~@J~@Jb@D`@DR@N@VBJ@j@DVB`@D`@B??HJFH|@Hz@J??N@dDXPBH@??N@lD^\\@z@DTLb@DXD`@?P@LB??vGl@tDb@??dK|@??zCX??@OzCZ|BTj@RTBTBn@HTB??r@UB?PGLELEFEFQ^mATu@Rk@@GRk@Pm@HUHSRq@DOb@wAp@wBDMDMRo@Ne@HWHWFQJ]DMDI@ADMNg@L_@J]BIDOBGL_@L_@La@Pk@BIBG?AJ]Pi@Pg@L]Na@???EDIBIBKLa@FUFSDQDQDSBGPi@FMFODKDODMPk@Pm@HYJYV{@BKDMXw@BI@GFUFUL_@J_@DMDOLa@L_@N_@HYJYLa@@IJWL]FUFQHWX}@XaAJ[@GFOPo@Rq@Pm@\\kABIBIFU@IBI@CDK?AFQFSZ}@@EVo@HUDMNc@@E@KPk@L_@La@DODOLa@Ne@\\cALa@FYDMBODWBW@U?M@G?Q?QAUE]G]EOEMQo@EKW{@M_@[{@[_AEUAS?AAKAI?W?A?I?IBM@GBGDKJWBIBEHYJ[BGHYJ_@HU@GL_@JWXy@@EBGJ_@Nm@Lg@FU??YKwBi@mCo@iDaAmA[m@KMCGCKCc@M]IGAECs@Sg@My@WMEMC",
+                "bounds": {
+                    "northeast": {
+                        "lat": 13.7432521,
+                        "lng": 100.5710503
+                    },
+                    "southwest": {
+                        "lat": 13.7186956,
+                        "lng": 100.5446753
+                    }
+                },
+                "id": 12917
+            }
+        ],
+        "id": 13150
+    }
+}</code>
+      </pre>
+      <a name="CancelOrder"></a>
+      <div class="seperator"></div>
+      <h2>Cancel Order API</h2>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>DELETE</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "message": "Order {ORDER_ID} is now canceled!"
+  }
+}</code>
+      </pre>
+      <a name="Tracking"></a>
+      <div class="seperator"></div>
+      <h2>Tracking API</h2>
+      <h4 class="subtitle">API Url</h4>
+      <p>Method: <b>PUT</b></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120">Staging</td>
+            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120">Production</td>
+            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Headers</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tr class="valign-middle">
+            <td width="120"><code>Content-Type</code></td>
+            <td><code>application/json</code></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="120"><code>Authorization</code></td>
+            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Response</h4>
+      <pre>
+        <code class="json">{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "status": 2,
+      "statusMessage": "In Progress",
+      "assignments": [
+        {
+          "id": 32290,
+          "status": 2,
+          "statusMessage": "In Progress",
+          "job": [
+            {
+              "id": 68803,
+              "status": 1,
+              "statusMessage": "Assigned"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code>
+      </pre>
+      <div class="seperator"></div>
+      <p>For further information and/or if you have a question, please contact <a href="dev@sendit.asia">dev@sendit.asia</a>.</p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga')
+
+  ga('create', 'UA-84477134-2', 'auto')
+  ga('send', 'pageview')
+
+  hljs.initHighlightingOnLoad();
+</script>
+<!--[if lt IE 7 ]>
+<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
+</body>
+</html>
