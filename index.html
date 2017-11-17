@@ -31,7 +31,7 @@
       <h2>Sendit On-demand API Document</h2>
       <h4 class="subtitle">Version 2.0</h4>
       <p>Sendit’s client who need to push the order to the system via API, can use the following information to create an order directly to our service and the order will appear on the client’s order history online.</p>
-      <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a>, <a href="#Answers">Answers API</a></b></p>
+      <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a>, <a href="#Status">Status Definition</a>, <a href="#Answers">Answers API</a></b></p>
       <a name="Calculate"></a>
       <div class="seperator"></div>
       <h2>Calculate API</h2>
@@ -333,6 +333,159 @@
   }
 }</code>
       </pre>
+      <a name="Status"></a>
+      <div class="seperator"></div>
+      <h2>Status Definition</h2>
+      <h4 class="subtitle">Order / Assignment / Job</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Status Code</b></th>
+              <th><b>Description</b></th>
+              <th><b>Apply to</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>UNASSIGNED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>ASSIGNED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>IN_PROGRESS</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>PARTIALLY_COMPLETE</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>COMPLETED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>FAILED</td>
+            <td>Order / Assignment / Job</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>CANCELLED</td>
+            <td>Job</td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Parcel</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Status Code</b></th>
+              <th><b>Description</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>UNASSIGNED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>ACCEPTED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>DELIVERED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>FAILED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>CANCELLED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>DECLINED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>LOGISTIC_CENTRE</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">7</td>
+            <td>PICKED_UP</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">8</td>
+            <td>DISCARDED</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">9</td>
+            <td>WE_BROKE_IT</td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="subtitle">Service Type</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead class="valign-middle">
+            <tr class="valign-middle">
+              <th width="100"><b>Service Code</b></th>
+              <th><b>Description</b></th>
+              <th><b>Remark</b></th>
+            </tr>
+          </thead>
+          <tr class="valign-middle">
+            <td width="100">0</td>
+            <td>ROUND_TRIP</td>
+            <td>Will create last job with type "return_sender"</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">1</td>
+            <td>DOCUMENT_PROCESSING</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">2</td>
+            <td>MAILING_SERVICE</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">3</td>
+            <td>PURCHASE_SERVICE</td>
+            <td>Need to add "round trip"</td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">4</td>
+            <td>CASH_ON_DELIVERY</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">5</td>
+            <td>FOOD_DELIVERY</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">6</td>
+            <td>ID_APPROVAL</td>
+            <td></td>
+          </tr>
+          <tr class="valign-middle">
+            <td width="100">7</td>
+            <td>NO_SERVICE</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
       <a name="Answers"></a>
       <div class="seperator"></div>
       <h2>Pickup Answers API</h2>
