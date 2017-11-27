@@ -65,122 +65,124 @@
         <h4 class="subtitle">Body</h4>
         <p>Order details in JSON format. All fields and scopes are explained in the following lines.</p>
         <h4 class="subtitle">Request</h4>
-                      <pre>
-                            <code class="json">{
-                      "optimize": false, // if the client need Sendit to call the route optimization function in order to safe cost and give the shortest route to the driver
-                      "pickupAddress": [ //array of object, up to 3
-                        {
-                          "buildingName": "", //optional, point of interest e.g. apartment name, village name
-                          "streetNumber": "40", //unit number / house number
-                          "streetName": "Soi Silom 3", //street / road / soi
-                          "subDistrict": "",
-                          "district": "",
-                          "city": "Bangkok",
-                          "province": "",
-                          "country": "Thailand",
-                          "postcode": "10500", //post code in number format
-                          "lat": 13.7247119,
-                          "long": 100.53162420000001,
-                          "name": "ร้านไก่ย่างห้าดาวสาขาสีลม 40", //shop name
-                          "phone": "022222222" //shop phone
-                        }, {
-                          "buildingName": "",
-                          "streetNumber": "130",
-                          "streetName": "ซ. จุฬาฯ 5",
-                          "subDistrict": "",
-                          "district": "",
-                          "city": "Bangkok",
-                          "province": "",
-                          "country": "Thailand",
-                          "postcode": "10330",
-                          "lat": 13.580993,
-                          "long": 100.756239,
-                          "name": "ร้านไก่ย่างห้าดาวสาขาจุฬา",
-                          "phone": "022222222"
-                        }, {
-                          "buildingName": "TIP 8 Industrial Project",
-                          "streetNumber": "",
-                          "streetName": "",
-                          "subDistrict": "",
-                          "district": "",
-                          "city": "ตำบล บางปลา",
-                          "province": "ตำบล บางปลา",
-                          "country": "ไทย",
-                          "postcode": "10540",
-                          "lat": 13.580993,
-                          "long": 100.756239,
-                          "name": "ร้านไก่ย่างห้าดาวสาขาสุขุมวิท 26",
-                          "phone": "022222222"
-                        }
-                      ],
-                      "assignments": [ //assignment array, normally set to 1 assignment
-                        {
-                          "vehicleType": "MOTORCYCLE", //this is fix
-                          "note": "Instruction &amp; order detail for Sendit Driver to order 5 Stars Chicken", //readable text for instruction
-                          "email": "customeremail@domain.com", //customer email
-                          "jobs": [ //detail of each drop-off location (5 jobs available for single assignment), normally we have 1
-                            {
-                              "deliveryAddress": { //recipient address)
-                                "buildingName": "", //optional, point of interest e.g. apartment name, village name
-                                "streetNumber": "128/463", //unit number / house number
-                                "streetName": "Soi Thaiprakan Soi 1/6", //street / road / soi
-                                "subDistrict": "",
-                                "district": "",
-                                "city": "Tambon Bang Sao Thong",
-                                "province": "Tambon Bang Sao Thong",
-                                "country": "Thailand",
-                                "postcode": "10540", //post code in number format
-                                "lat": 13.5847746,
-                                "long": 100.77231269999993
-                              },
-                              "parcels": [ //5 parcels available for each job
-                                {
-                                  "recipient": "Customer Name", //recipient name
-                                  "phone": "Customer Phone", //recipient contact phone
-                                  "note": "Optional note for driver", //information/instruction about the recipient e.g. floor number / how to access the building, etc.
-                                  "services": [ //ROUND_TRIP: 0, DOCUMENT_PROCESSING: 1, MAILING_SERVICE: 2, PURCHASE_SERVICE: 3, CASH_ON_DELIVERY (with price data field): 4, FOOD_DELIVERY: 5, ID_APPROVAL: 6, INSURANCE (with price data field): 8)
-                                    {
-                                      "type": 5
-                                    },
-                                    {
-                                      "data": {
-                                        "price": 5000
-                                      },
-                                      "type": 8
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "optimize": false, // if the client need Sendit to call the route optimization function in order to safe cost and give the shortest route to the driver
+  "pickupAddress": [ //array of object, up to 3
+    {
+      "buildingName": "", //optional, point of interest e.g. apartment name, village name
+      "streetNumber": "40", //unit number / house number
+      "streetName": "Soi Silom 3", //street / road / soi
+      "subDistrict": "",
+      "district": "",
+      "city": "Bangkok",
+      "province": "",
+      "country": "Thailand",
+      "postcode": "10500", //post code in number format
+      "lat": 13.7247119,
+      "long": 100.53162420000001,
+      "name": "ร้านไก่ย่างห้าดาวสาขาสีลม 40", //shop name
+      "phone": "022222222" //shop phone
+    }, {
+      "buildingName": "",
+      "streetNumber": "130",
+      "streetName": "ซ. จุฬาฯ 5",
+      "subDistrict": "",
+      "district": "",
+      "city": "Bangkok",
+      "province": "",
+      "country": "Thailand",
+      "postcode": "10330",
+      "lat": 13.580993,
+      "long": 100.756239,
+      "name": "ร้านไก่ย่างห้าดาวสาขาจุฬา",
+      "phone": "022222222"
+    }, {
+      "buildingName": "TIP 8 Industrial Project",
+      "streetNumber": "",
+      "streetName": "",
+      "subDistrict": "",
+      "district": "",
+      "city": "ตำบล บางปลา",
+      "province": "ตำบล บางปลา",
+      "country": "ไทย",
+      "postcode": "10540",
+      "lat": 13.580993,
+      "long": 100.756239,
+      "name": "ร้านไก่ย่างห้าดาวสาขาสุขุมวิท 26",
+      "phone": "022222222"
+    }
+  ],
+  "assignments": [ //assignment array, normally set to 1 assignment
+    {
+      "vehicleType": "MOTORCYCLE", //this is fix
+      "note": "Instruction &amp; order detail for Sendit Driver to order 5 Stars Chicken", //readable text for instruction
+      "email": "customeremail@domain.com", //customer email
+      "jobs": [ //detail of each drop-off location (5 jobs available for single assignment), normally we have 1
+        {
+          "deliveryAddress": { //recipient address)
+            "buildingName": "", //optional, point of interest e.g. apartment name, village name
+            "streetNumber": "128/463", //unit number / house number
+            "streetName": "Soi Thaiprakan Soi 1/6", //street / road / soi
+            "subDistrict": "",
+            "district": "",
+            "city": "Tambon Bang Sao Thong",
+            "province": "Tambon Bang Sao Thong",
+            "country": "Thailand",
+            "postcode": "10540", //post code in number format
+            "lat": 13.5847746,
+            "long": 100.77231269999993
+          },
+          "parcels": [ //5 parcels available for each job
+            {
+              "recipient": "Customer Name", //recipient name
+              "phone": "Customer Phone", //recipient contact phone
+              "note": "Optional note for driver", //information/instruction about the recipient e.g. floor number / how to access the building, etc.
+              "services": [ //ROUND_TRIP: 0, DOCUMENT_PROCESSING: 1, MAILING_SERVICE: 2, PURCHASE_SERVICE: 3, CASH_ON_DELIVERY (with price data field): 4, FOOD_DELIVERY: 5, ID_APPROVAL: 6, INSURANCE (with price data field): 8)
+                {
+                  "type": 5
+                },
+                {
+                  "data": {
+                    "price": 5000
+                  },
+                  "type": 8
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
         </pre>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "transactionId": "HashNumberHere", //transactionId from server, we will use this for create order later.
-                        "calculation": [{
-                          "price": 222,
-                          "distance": 234,
-                          "distanceUnit": "meter",
-                          "pickupAddressId": 4039
-                        }, {
-                          "price": 234,
-                          "distance": 250,
-                          "distanceUnit": "meter",
-                          "pickupAddressId": 4040
-                        }, {
-                          "price": 250,
-                          "distance": 268,
-                          "distanceUnit": "meter",
-                          "pickupAddressId": 4041
-                        }]
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "transactionId": "HashNumberHere", //transactionId from server, we will use this for create order later.
+    "calculation": [{
+      "price": 222,
+      "distance": 234,
+      "distanceUnit": "meter",
+      "pickupAddressId": 4039
+    }, {
+      "price": 234,
+      "distance": 250,
+      "distanceUnit": "meter",
+      "pickupAddressId": 4040
+    }, {
+      "price": 250,
+      "distance": 268,
+      "distanceUnit": "meter",
+      "pickupAddressId": 4041
+    }]
+  }
+}</code>
         </pre>
         <a name="CreateOrder"></a>
         <div class="seperator"></div>
@@ -213,32 +215,34 @@
           </table>
         </div>
         <h4 class="subtitle">Request</h4>
-                      <pre>
-                            <code class="json">{
-                      "transactionId": "HashNumberHere", //transaction id that Sendit response from Calculate API
-                      "pickupAt": "03/14/2016 11:50 AM" //pickup date and time (dd/mm/YYYY H:mm AA)
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "transactionId": "HashNumberHere", //transaction id that Sendit response from Calculate API
+  "pickupAt": "03/14/2016 11:50 AM" //pickup date and time (dd/mm/YYYY H:mm AA)
+}</code>
         </pre>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "order": {
-                          "id": 33084,
-                          "assignments": [
-                            {
-                              "id": 32290,
-                              "job": [
-                                {
-                                  "id": 68803
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "assignments": [
+        {
+          "id": 32290,
+          "job": [
+            {
+              "id": 68803
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code>
         </pre>
         <a name="CancelOrder"></a>
         <div class="seperator"></div>
@@ -271,13 +275,14 @@
           </table>
         </div>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "message": "Order {ORDER_ID} is now canceled!"
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "message": "Order {ORDER_ID} is now canceled!"
+  }
+}</code>
         </pre>
         <a name="Tracking"></a>
         <div class="seperator"></div>
@@ -310,31 +315,32 @@
           </table>
         </div>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "order": {
-                          "id": 33084,
-                          "status": 2,
-                          "statusMessage": "In Progress",
-                          "assignments": [
-                            {
-                              "id": 32290,
-                              "status": 2,
-                              "statusMessage": "In Progress",
-                              "job": [
-                                {
-                                  "id": 68803,
-                                  "status": 1,
-                                  "statusMessage": "Assigned"
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "status": 2,
+      "statusMessage": "In Progress",
+      "assignments": [
+        {
+          "id": 32290,
+          "status": 2,
+          "statusMessage": "In Progress",
+          "job": [
+            {
+              "id": 68803,
+              "status": 1,
+              "statusMessage": "Assigned"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}</code>
         </pre>
         <a name="Status"></a>
         <div class="seperator"></div>
@@ -523,22 +529,23 @@
           </table>
         </div>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "pickupAnswer": [{
-                          "id": 1,
-                          "answer": "ร้านไกลกว่า"
-                        }, {
-                          "id": 2,
-                          "answer": "ร้านปิด"
-                        }, {
-                          "id": 3,
-                          "answer": "ติดต่อไม่ได้"
-                        }]
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "pickupAnswer": [{
+      "id": 1,
+      "answer": "ร้านไกลกว่า"
+    }, {
+      "id": 2,
+      "answer": "ร้านปิด"
+    }, {
+      "id": 3,
+      "answer": "ติดต่อไม่ได้"
+    }]
+  }
+}</code>
         </pre>
         <h3>Create Answer</h3>
         <h4 class="subtitle">API Url</h4>
@@ -569,25 +576,27 @@
           </table>
         </div>
         <h4 class="subtitle">Request</h4>
-                      <pre>
-                            <code class="json">{
-                      "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
+}</code>
         </pre>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "pickupAnswer": [{
-                          "id": 4,
-                          "answer": "สินค้าไม่ครบ"
-                        }, {
-                          "id": 5,
-                          "answer": "ราคาไม่ตรง"
-                        }]
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "pickupAnswer": [{
+      "id": 4,
+      "answer": "สินค้าไม่ครบ"
+    }, {
+      "id": 5,
+      "answer": "ราคาไม่ตรง"
+    }]
+  }
+}</code>
         </pre>
         <h3>Update Answer</h3>
         <h4 class="subtitle">API Url</h4>
@@ -618,22 +627,24 @@
           </table>
         </div>
         <h4 class="subtitle">Request</h4>
-                      <pre>
-                            <code class="json">{
+          <pre>
+            <code class="json">
+{
                       "pickupAnswer": "สินค้าไม่มี"
                     }</code>
         </pre>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "pickupAnswer": {
-                          "id": 4,
-                          "answer": "สินค้าไม่ครบ"
-                        }
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "pickupAnswer": {
+      "id": 4,
+      "answer": "สินค้าไม่ครบ"
+    }
+  }
+}</code>
         </pre>
         <h3>Delete Answer</h3>
         <h4 class="subtitle">API Url</h4>
@@ -664,29 +675,31 @@
           </table>
         </div>
         <h4 class="subtitle">Response</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
+  }
+}</code>
         </pre>
         <h2>Update Answer</h2>
         <h4 class="subtitle">JSON Format</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "order": {
-                          "id": 33084,
-                          "answer": {
-                            "id": 4,
-                            "answer": "สินค้าไม่ครบ"
-                          }
-                        }
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "answer": {
+        "id": 4,
+        "answer": "สินค้าไม่ครบ"
+      }
+    }
+  }
+}</code>
         </pre>
         <a name="UpdateStore"></a>
         <div class="seperator"></div>
@@ -694,16 +707,17 @@
         <h4 class="subtitle">Description</h4>
         <p>This JSON object use for update answer for multiple pick up order</p>
         <h4 class="subtitle">JSON</h4>
-                      <pre>
-                            <code class="json">{
-                      "success": true,
-                      "result": {
-                        "order": {
-                          "id": 33084,
-                          "pickupAddressId": 4039
-                        }
-                      }
-                    }</code>
+          <pre>
+            <code class="json">
+{
+  "success": true,
+  "result": {
+    "order": {
+      "id": 33084,
+      "pickupAddressId": 4039
+    }
+  }
+}</code>
         </pre>
         <div class="seperator"></div>
         <p>For further information and/or if you have a question, please contact <a href="dev@sendit.asia">dev@sendit.asia</a>.</p>
