@@ -66,8 +66,7 @@
         <p>Order details in JSON format. All fields and scopes are explained in the following lines.</p>
         <h4 class="subtitle">Request</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "optimize": false, // if the client need Sendit to call the route optimization function in order to safe cost and give the shortest route to the driver
   "pickupAddress": [ //array of object, up to 3
     {
@@ -160,8 +159,7 @@
         </pre>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "transactionId": "HashNumberHere", //transactionId from server, we will use this for create order later.
@@ -216,16 +214,14 @@
         </div>
         <h4 class="subtitle">Request</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "transactionId": "HashNumberHere", //transaction id that Sendit response from Calculate API
   "pickupAt": "03/14/2016 11:50 AM" //pickup date and time (dd/mm/YYYY H:mm AA)
 }</code>
         </pre>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "order": {
@@ -276,8 +272,7 @@
         </div>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "message": "Order {ORDER_ID} is now canceled!"
@@ -316,8 +311,7 @@
         </div>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "order": {
@@ -530,8 +524,7 @@
         </div>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "pickupAnswer": [{
@@ -577,15 +570,13 @@
         </div>
         <h4 class="subtitle">Request</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
 }</code>
         </pre>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "pickupAnswer": [{
@@ -628,15 +619,13 @@
         </div>
         <h4 class="subtitle">Request</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
                       "pickupAnswer": "สินค้าไม่มี"
                     }</code>
         </pre>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "pickupAnswer": {
@@ -676,8 +665,7 @@
         </div>
         <h4 class="subtitle">Response</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
@@ -687,8 +675,7 @@
         <h2>Update Answer</h2>
         <h4 class="subtitle">JSON Format</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "order": {
@@ -708,8 +695,7 @@
         <p>This JSON object use for update answer for multiple pick up order</p>
         <h4 class="subtitle">JSON</h4>
           <pre>
-            <code class="json">
-{
+            <code class="json">{
   "success": true,
   "result": {
     "order": {
