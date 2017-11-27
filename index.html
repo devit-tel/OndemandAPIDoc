@@ -19,676 +19,709 @@
   <script src="./highlightjs/highlight.pack.js"></script>
 </head>
 <body>
-<div id="container">
-  <div id="intro">
-    <div class="content">
-      <img src="./logo@2x.png" alt="Sendit" height="30" />
-      <h1>On-demand API Doc</h1>
+  <div id="container">
+    <div id="intro">
+      <div class="content">
+        <img src="./logo@2x.png" alt="Sendit" height="30" />
+        <h1>On-demand API Doc</h1>
+      </div>
+    </div>
+    <div id="content">
+      <div class="content">
+        <h2>Sendit On-demand API Document</h2>
+        <h4 class="subtitle">Version 2.0</h4>
+        <p>Sendit’s client who need to push the order to the system via API, can use the following information to create an order directly to our service and the order will appear on the client’s order history online.</p>
+        <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a>, <a href="#Status">Status Definition</a>, <a href="#Answers">Answers API</a></b></p>
+        <a name="Calculate"></a>
+        <div class="seperator"></div>
+        <h2>Calculate API</h2>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>POST</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/calculate</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/calculate</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Body</h4>
+        <p>Order details in JSON format. All fields and scopes are explained in the following lines.</p>
+        <h4 class="subtitle">Request</h4>
+                      <pre>
+                            <code class="json">{
+                      "optimize": false, // if the client need Sendit to call the route optimization function in order to safe cost and give the shortest route to the driver
+                      "pickupAddress": [ //array of object, up to 3
+                        {
+                          "buildingName": "", //optional, point of interest e.g. apartment name, village name
+                          "streetNumber": "40", //unit number / house number
+                          "streetName": "Soi Silom 3", //street / road / soi
+                          "subDistrict": "",
+                          "district": "",
+                          "city": "Bangkok",
+                          "province": "",
+                          "country": "Thailand",
+                          "postcode": "10500", //post code in number format
+                          "lat": 13.7247119,
+                          "long": 100.53162420000001,
+                          "name": "ร้านไก่ย่างห้าดาวสาขาสีลม 40", //shop name
+                          "phone": "022222222" //shop phone
+                        }, {
+                          "buildingName": "",
+                          "streetNumber": "130",
+                          "streetName": "ซ. จุฬาฯ 5",
+                          "subDistrict": "",
+                          "district": "",
+                          "city": "Bangkok",
+                          "province": "",
+                          "country": "Thailand",
+                          "postcode": "10330",
+                          "lat": 13.580993,
+                          "long": 100.756239,
+                          "name": "ร้านไก่ย่างห้าดาวสาขาจุฬา",
+                          "phone": "022222222"
+                        }, {
+                          "buildingName": "TIP 8 Industrial Project",
+                          "streetNumber": "",
+                          "streetName": "",
+                          "subDistrict": "",
+                          "district": "",
+                          "city": "ตำบล บางปลา",
+                          "province": "ตำบล บางปลา",
+                          "country": "ไทย",
+                          "postcode": "10540",
+                          "lat": 13.580993,
+                          "long": 100.756239,
+                          "name": "ร้านไก่ย่างห้าดาวสาขาสุขุมวิท 26",
+                          "phone": "022222222"
+                        }
+                      ],
+                      "assignments": [ //assignment array, normally set to 1 assignment
+                        {
+                          "vehicleType": "MOTORCYCLE", //this is fix
+                          "note": "Instruction &amp; order detail for Sendit Driver to order 5 Stars Chicken", //readable text for instruction
+                          "email": "customeremail@domain.com", //customer email
+                          "jobs": [ //detail of each drop-off location (5 jobs available for single assignment), normally we have 1
+                            {
+                              "deliveryAddress": { //recipient address)
+                                "buildingName": "", //optional, point of interest e.g. apartment name, village name
+                                "streetNumber": "128/463", //unit number / house number
+                                "streetName": "Soi Thaiprakan Soi 1/6", //street / road / soi
+                                "subDistrict": "",
+                                "district": "",
+                                "city": "Tambon Bang Sao Thong",
+                                "province": "Tambon Bang Sao Thong",
+                                "country": "Thailand",
+                                "postcode": "10540", //post code in number format
+                                "lat": 13.5847746,
+                                "long": 100.77231269999993
+                              },
+                              "parcels": [ //5 parcels available for each job
+                                {
+                                  "recipient": "Customer Name", //recipient name
+                                  "phone": "Customer Phone", //recipient contact phone
+                                  "note": "Optional note for driver", //information/instruction about the recipient e.g. floor number / how to access the building, etc.
+                                  "services": [ //ROUND_TRIP: 0, DOCUMENT_PROCESSING: 1, MAILING_SERVICE: 2, PURCHASE_SERVICE: 3, CASH_ON_DELIVERY (with price data field): 4, FOOD_DELIVERY: 5, ID_APPROVAL: 6, INSURANCE (with price data field): 8)
+                                    {
+                                      "type": 5
+                                    },
+                                    {
+                                      "data": {
+                                        "price": 5000
+                                      },
+                                      "type": 8
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }</code>
+        </pre>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "transactionId": "HashNumberHere", //transactionId from server, we will use this for create order later.
+                        "calculation": [{
+                          "price": 222,
+                          "distance": 234,
+                          "distanceUnit": "meter",
+                          "pickupAddressId": 4039
+                        }, {
+                          "price": 234,
+                          "distance": 250,
+                          "distanceUnit": "meter",
+                          "pickupAddressId": 4040
+                        }, {
+                          "price": 250,
+                          "distance": 268,
+                          "distanceUnit": "meter",
+                          "pickupAddressId": 4041
+                        }]
+                      }
+                    }</code>
+        </pre>
+        <a name="CreateOrder"></a>
+        <div class="seperator"></div>
+        <h2>Create Order API</h2>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>POST</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Request</h4>
+                      <pre>
+                            <code class="json">{
+                      "transactionId": "HashNumberHere", //transaction id that Sendit response from Calculate API
+                      "pickupAt": "03/14/2016 11:50 AM" //pickup date and time (dd/mm/YYYY H:mm AA)
+                    }</code>
+        </pre>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "order": {
+                          "id": 33084,
+                          "assignments": [
+                            {
+                              "id": 32290,
+                              "job": [
+                                {
+                                  "id": 68803
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }</code>
+        </pre>
+        <a name="CancelOrder"></a>
+        <div class="seperator"></div>
+        <h2>Cancel Order API</h2>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>DELETE</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "message": "Order {ORDER_ID} is now canceled!"
+                      }
+                    }</code>
+        </pre>
+        <a name="Tracking"></a>
+        <div class="seperator"></div>
+        <h2>Tracking API</h2>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>PUT</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "order": {
+                          "id": 33084,
+                          "status": 2,
+                          "statusMessage": "In Progress",
+                          "assignments": [
+                            {
+                              "id": 32290,
+                              "status": 2,
+                              "statusMessage": "In Progress",
+                              "job": [
+                                {
+                                  "id": 68803,
+                                  "status": 1,
+                                  "statusMessage": "Assigned"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }</code>
+        </pre>
+        <a name="Status"></a>
+        <div class="seperator"></div>
+        <h2>Status Definition</h2>
+        <h4 class="subtitle">Order / Assignment / Job</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="valign-middle">
+              <tr class="valign-middle">
+                <th width="100"><b>Status Code</b></th>
+                <th><b>Description</b></th>
+                <th><b>Apply to</b></th>
+              </tr>
+            </thead>
+            <tr class="valign-middle">
+              <td width="100">0</td>
+              <td>UNASSIGNED</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">1</td>
+              <td>ASSIGNED</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">2</td>
+              <td>IN_PROGRESS</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">3</td>
+              <td>PARTIALLY_COMPLETE</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">4</td>
+              <td>COMPLETED</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">5</td>
+              <td>FAILED</td>
+              <td>Order / Assignment / Job</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">6</td>
+              <td>CANCELLED</td>
+              <td>Job</td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Parcel</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="valign-middle">
+              <tr class="valign-middle">
+                <th width="100"><b>Status Code</b></th>
+                <th><b>Description</b></th>
+              </tr>
+            </thead>
+            <tr class="valign-middle">
+              <td width="100">0</td>
+              <td>UNASSIGNED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">1</td>
+              <td>ACCEPTED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">2</td>
+              <td>DELIVERED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">3</td>
+              <td>FAILED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">4</td>
+              <td>CANCELLED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">5</td>
+              <td>DECLINED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">6</td>
+              <td>LOGISTIC_CENTRE</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">7</td>
+              <td>PICKED_UP</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">8</td>
+              <td>DISCARDED</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">9</td>
+              <td>WE_BROKE_IT</td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Service Type</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead class="valign-middle">
+              <tr class="valign-middle">
+                <th width="100"><b>Service Code</b></th>
+                <th><b>Description</b></th>
+                <th><b>Remark</b></th>
+              </tr>
+            </thead>
+            <tr class="valign-middle">
+              <td width="100">0</td>
+              <td>ROUND_TRIP</td>
+              <td>Will create last job with type "return_sender"</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">1</td>
+              <td>DOCUMENT_PROCESSING</td>
+              <td></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">2</td>
+              <td>MAILING_SERVICE</td>
+              <td></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">3</td>
+              <td>PURCHASE_SERVICE</td>
+              <td>Need to add "round trip"</td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">4</td>
+              <td>CASH_ON_DELIVERY</td>
+              <td></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">5</td>
+              <td>FOOD_DELIVERY</td>
+              <td></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">6</td>
+              <td>ID_APPROVAL</td>
+              <td></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="100">7</td>
+              <td>NO_SERVICE</td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+        <a name="Answers"></a>
+        <div class="seperator"></div>
+        <h2>Pickup Answers API</h2>
+        <h4 class="subtitle">Description</h4>
+        <p>This API is for customer who want to list Answers for Sendit's driver to answer when choose not to go prefer shop</p>
+        <h3>List Answers</h3>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>GET</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "pickupAnswer": [{
+                          "id": 1,
+                          "answer": "ร้านไกลกว่า"
+                        }, {
+                          "id": 2,
+                          "answer": "ร้านปิด"
+                        }, {
+                          "id": 3,
+                          "answer": "ติดต่อไม่ได้"
+                        }]
+                      }
+                    }</code>
+        </pre>
+        <h3>Create Answer</h3>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>POST</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Request</h4>
+                      <pre>
+                            <code class="json">{
+                      "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
+                    }</code>
+        </pre>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "pickupAnswer": [{
+                          "id": 4,
+                          "answer": "สินค้าไม่ครบ"
+                        }, {
+                          "id": 5,
+                          "answer": "ราคาไม่ตรง"
+                        }]
+                      }
+                    }</code>
+        </pre>
+        <h3>Update Answer</h3>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>PUT</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Request</h4>
+                      <pre>
+                            <code class="json">{
+                      "pickupAnswer": "สินค้าไม่มี"
+                    }</code>
+        </pre>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "pickupAnswer": {
+                          "id": 4,
+                          "answer": "สินค้าไม่ครบ"
+                        }
+                      }
+                    }</code>
+        </pre>
+        <h3>Delete Answer</h3>
+        <h4 class="subtitle">API Url</h4>
+        <p>Method: <b>DELETE</b></p>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120">Staging</td>
+              <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120">Production</td>
+              <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Headers</h4>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tr class="valign-middle">
+              <td width="120"><code>Content-Type</code></td>
+              <td><code>application/json</code></td>
+            </tr>
+            <tr class="valign-middle">
+              <td width="120"><code>Authorization</code></td>
+              <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
+            </tr>
+          </table>
+        </div>
+        <h4 class="subtitle">Response</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
+                      }
+                    }</code>
+        </pre>
+        <h2>Update Answer</h2>
+        <h4 class="subtitle">JSON Format</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "order": {
+                          "id": 33084,
+                          "answer": {
+                            "id": 4,
+                            "answer": "สินค้าไม่ครบ"
+                          }
+                        }
+                      }
+                    }</code>
+        </pre>
+        <a name="UpdateStore"></a>
+        <div class="seperator"></div>
+        <h2>Update Pickup Store API</h2>
+        <h4 class="subtitle">Description</h4>
+        <p>This JSON object use for update answer for multiple pick up order</p>
+        <h4 class="subtitle">JSON</h4>
+                      <pre>
+                            <code class="json">{
+                      "success": true,
+                      "result": {
+                        "order": {
+                          "id": 33084,
+                          "pickupAddressId": 4039
+                        }
+                      }
+                    }</code>
+        </pre>
+        <div class="seperator"></div>
+        <p>For further information and/or if you have a question, please contact <a href="dev@sendit.asia">dev@sendit.asia</a>.</p>
+      </div>
     </div>
   </div>
-  <div id="content">
-    <div class="content">
-      <h2>Sendit On-demand API Document</h2>
-      <h4 class="subtitle">Version 2.0</h4>
-      <p>Sendit’s client who need to push the order to the system via API, can use the following information to create an order directly to our service and the order will appear on the client’s order history online.</p>
-      <p><b>Jump to <a href="#Calculate">Calculate API</a>, <a href="#CreateOrder">Create Order API</a>, <a href="#CancelOrder">Cancel Order API</a>, <a href="#Tracking">Tracking API</a>, <a href="#Status">Status Definition</a>, <a href="#Answers">Answers API</a></b></p>
-      <a name="Calculate"></a>
-      <div class="seperator"></div>
-      <h2>Calculate API</h2>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>POST</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/calculate</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/calculate</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Body</h4>
-      <p>Order details in JSON format. All fields and scopes are explained in the following lines.</p>
-      <h4 class="subtitle">Request</h4>
-      <pre>
-        <code class="json">{
-  "optimize": false, // if the client need Sendit to call the route optimization function in order to safe cost and give the shortest route to the driver
-  "pickupAddress": [ //array of object, up to 3
-    {
-      "buildingName": "", //optional, point of interest e.g. apartment name, village name
-      "streetNumber": "40", //unit number / house number
-      "streetName": "Soi Silom 3", //street / road / soi
-      "subDistrict": "",
-      "district": "",
-      "city": "Bangkok",
-      "province": "",
-      "country": "Thailand",
-      "postcode": "10500", //post code in number format
-      "lat": 13.7247119,
-      "long": 100.53162420000001,
-      "name": "ร้านไก่ย่างห้าดาวสาขาสีลม 40", //shop name
-      "phone": "022222222" //shop phone
-    }, {
-      "buildingName": "",
-      "streetNumber": "130",
-      "streetName": "ซ. จุฬาฯ 5",
-      "subDistrict": "",
-      "district": "",
-      "city": "Bangkok",
-      "province": "",
-      "country": "Thailand",
-      "postcode": "10330",
-      "lat": 13.580993,
-      "long": 100.756239,
-      "name": "ร้านไก่ย่างห้าดาวสาขาจุฬา",
-      "phone": "022222222"
-    }, {
-      "buildingName": "TIP 8 Industrial Project",
-      "streetNumber": "",
-      "streetName": "",
-      "subDistrict": "",
-      "district": "",
-      "city": "ตำบล บางปลา",
-      "province": "ตำบล บางปลา",
-      "country": "ไทย",
-      "postcode": "10540",
-      "lat": 13.580993,
-      "long": 100.756239,
-      "name": "ร้านไก่ย่างห้าดาวสาขาสุขุมวิท 26",
-      "phone": "022222222"
-    }
-  ],
-  "assignments": [ //assignment array, normally set to 1 assignment
-    {
-      "vehicleType": "MOTORCYCLE", //this is fix
-      "note": "Instruction &amp; order detail for Sendit Driver to order 5 Stars Chicken", //readable text for instruction
-      "email": "customeremail@domain.com", //customer email
-      "jobs": [ //detail of each drop-off location (5 jobs available for single assignment), normally we have 1
-        {
-          "deliveryAddress": { //recipient address)
-            "buildingName": "", //optional, point of interest e.g. apartment name, village name
-            "streetNumber": "128/463", //unit number / house number
-            "streetName": "Soi Thaiprakan Soi 1/6", //street / road / soi
-            "subDistrict": "",
-            "district": "",
-            "city": "Tambon Bang Sao Thong",
-            "province": "Tambon Bang Sao Thong",
-            "country": "Thailand",
-            "postcode": "10540", //post code in number format
-            "lat": 13.5847746,
-            "long": 100.77231269999993
-          },
-          "parcels": [ //5 parcels available for each job
-            {
-              "recipient": "Customer Name", //recipient name
-              "phone": "Customer Phone", //recipient contact phone
-              "note": "Optional note for driver", //information/instruction about the recipient e.g. floor number / how to access the building, etc.
-              "services": [ //ROUND_TRIP: 0, DOCUMENT_PROCESSING: 1, MAILING_SERVICE: 2, PURCHASE_SERVICE: 3, CASH_ON_DELIVERY (with price data field): 4, FOOD_DELIVERY: 5, ID_APPROVAL: 6, INSURANCE (with price data field): 8)
-                {
-                  "type": 5
-                },
-                {
-                  "data": {
-                    "price": 5000
-                  },
-                  "type": 8
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}</code>
-      </pre>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "transactionId": "HashNumberHere", //transactionId from server, we will use this for create order later.
-    "calculation": [{
-      "price": 222,
-      "distance": 234,
-      "distanceUnit": "meter"
-    }, {
-      "price": 234,
-      "distance": 250,
-      "distanceUnit": "meter"
-    }, {
-      "price": 250,
-      "distance": 268,
-      "distanceUnit": "meter"
-    }]
-  }
-}</code>
-      </pre>
-      <a name="CreateOrder"></a>
-      <div class="seperator"></div>
-      <h2>Create Order API</h2>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>POST</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Request</h4>
-      <pre>
-        <code class="json">{
-  "transactionId": "HashNumberHere", //transaction id that Sendit response from Calculate API
-  "pickupAt": "03/14/2016 11:50 AM" //pickup date and time (dd/mm/YYYY H:mm AA)
-}</code>
-      </pre>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "order": {
-      "id": 33084,
-      "assignments": [
-        {
-          "id": 32290,
-          "job": [
-            {
-              "id": 68803
-            }
-          ]
-        }
-      ]
-    }
-  }
-}</code>
-      </pre>
-      <a name="CancelOrder"></a>
-      <div class="seperator"></div>
-      <h2>Cancel Order API</h2>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>DELETE</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/cancel</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "message": "Order {ORDER_ID} is now canceled!"
-  }
-}</code>
-      </pre>
-      <a name="Tracking"></a>
-      <div class="seperator"></div>
-      <h2>Tracking API</h2>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>PUT</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/orders/{ORDER_ID}/tracking</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "order": {
-      "id": 33084,
-      "status": 2,
-      "statusMessage": "In Progress",
-      "assignments": [
-        {
-          "id": 32290,
-          "status": 2,
-          "statusMessage": "In Progress",
-          "job": [
-            {
-              "id": 68803,
-              "status": 1,
-              "statusMessage": "Assigned"
-            }
-          ]
-        }
-      ]
-    }
-  }
-}</code>
-      </pre>
-      <a name="Status"></a>
-      <div class="seperator"></div>
-      <h2>Status Definition</h2>
-      <h4 class="subtitle">Order / Assignment / Job</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead class="valign-middle">
-            <tr class="valign-middle">
-              <th width="100"><b>Status Code</b></th>
-              <th><b>Description</b></th>
-              <th><b>Apply to</b></th>
-            </tr>
-          </thead>
-          <tr class="valign-middle">
-            <td width="100">0</td>
-            <td>UNASSIGNED</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">1</td>
-            <td>ASSIGNED</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">2</td>
-            <td>IN_PROGRESS</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">3</td>
-            <td>PARTIALLY_COMPLETE</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">4</td>
-            <td>COMPLETED</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">5</td>
-            <td>FAILED</td>
-            <td>Order / Assignment / Job</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">6</td>
-            <td>CANCELLED</td>
-            <td>Job</td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Parcel</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead class="valign-middle">
-            <tr class="valign-middle">
-              <th width="100"><b>Status Code</b></th>
-              <th><b>Description</b></th>
-            </tr>
-          </thead>
-          <tr class="valign-middle">
-            <td width="100">0</td>
-            <td>UNASSIGNED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">1</td>
-            <td>ACCEPTED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">2</td>
-            <td>DELIVERED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">3</td>
-            <td>FAILED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">4</td>
-            <td>CANCELLED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">5</td>
-            <td>DECLINED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">6</td>
-            <td>LOGISTIC_CENTRE</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">7</td>
-            <td>PICKED_UP</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">8</td>
-            <td>DISCARDED</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">9</td>
-            <td>WE_BROKE_IT</td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Service Type</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead class="valign-middle">
-            <tr class="valign-middle">
-              <th width="100"><b>Service Code</b></th>
-              <th><b>Description</b></th>
-              <th><b>Remark</b></th>
-            </tr>
-          </thead>
-          <tr class="valign-middle">
-            <td width="100">0</td>
-            <td>ROUND_TRIP</td>
-            <td>Will create last job with type "return_sender"</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">1</td>
-            <td>DOCUMENT_PROCESSING</td>
-            <td></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">2</td>
-            <td>MAILING_SERVICE</td>
-            <td></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">3</td>
-            <td>PURCHASE_SERVICE</td>
-            <td>Need to add "round trip"</td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">4</td>
-            <td>CASH_ON_DELIVERY</td>
-            <td></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">5</td>
-            <td>FOOD_DELIVERY</td>
-            <td></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">6</td>
-            <td>ID_APPROVAL</td>
-            <td></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="100">7</td>
-            <td>NO_SERVICE</td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
-      <a name="Answers"></a>
-      <div class="seperator"></div>
-      <h2>Pickup Answers API</h2>
-      <h4 class="subtitle">Description</h4>
-      <p>This API is for customer who want to list Answers for Sendit's driver to answer when choose not to go prefer shop</p>
-      <h3>List Answers</h3>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>GET</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "pickupAnswer": [{
-      "id": 1,
-      "answer": "ร้านไกลกว่า"
-    }, {
-      "id": 2,
-      "answer": "ร้านปิด"
-    }, {
-      "id": 3,
-      "answer": "ติดต่อไม่ได้"
-    }]
-  }
-}</code>
-      </pre>
-      <h3>Create Answer</h3>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>POST</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answers</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answers</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Request</h4>
-      <pre>
-        <code class="json">{
-  "pickupAnswer": ["สินค้าไม่ครบ", "ราคาไม่ตรง"]
-}</code>
-      </pre>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "pickupAnswer": [{
-      "id": 4,
-      "answer": "สินค้าไม่ครบ"
-    }, {
-      "id": 5,
-      "answer": "ราคาไม่ตรง"
-    }]
-  }
-}</code>
-      </pre>
-      <h3>Update Answer</h3>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>PUT</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Request</h4>
-      <pre>
-        <code class="json">{
-  "pickupAnswer": "สินค้าไม่มี"
-}</code>
-      </pre>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "pickupAnswer": {
-      "id": 4,
-      "answer": "สินค้าไม่ครบ"
-    }
-  }
-}</code>
-      </pre>
-      <h3>Delete Answer</h3>
-      <h4 class="subtitle">API Url</h4>
-      <p>Method: <b>DELETE</b></p>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120">Staging</td>
-            <td><code><a>https://staging.api.sendit.asia/th/on-demand/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120">Production</td>
-            <td><code><a>http://api-x.sendit.asia/api/rest/v2/external/pickup/answer/{ANSWER_ID}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Headers</h4>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <tr class="valign-middle">
-            <td width="120"><code>Content-Type</code></td>
-            <td><code>application/json</code></td>
-          </tr>
-          <tr class="valign-middle">
-            <td width="120"><code>Authorization</code></td>
-            <td><code>basic <a>{SENDIT_TOKEN}</a></code></td>
-          </tr>
-        </table>
-      </div>
-      <h4 class="subtitle">Response</h4>
-      <pre>
-        <code class="json">{
-  "success": true,
-  "result": {
-    "message": "Answer {ANSWER_ID} - {ANSWER} is now deleted!"
-  }
-}</code>
-      </pre>
-
-      <div class="seperator"></div>
-      <p>For further information and/or if you have a question, please contact <a href="dev@sendit.asia">dev@sendit.asia</a>.</p>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
+  <script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga')
-
   ga('create', 'UA-84477134-2', 'auto')
   ga('send', 'pageview')
-
   hljs.initHighlightingOnLoad();
-</script>
-<!--[if lt IE 7 ]>
-<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-<![endif]-->
+  </script>
+  <!--[if lt IE 7 ]>
+  <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+  <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
 </body>
 </html>
