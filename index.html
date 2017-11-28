@@ -166,18 +166,15 @@
     "calculation": [{
       "price": 222,
       "distance": 234,
-      "distanceUnit": "meter",
-      "pickupAddressId": 4039
+      "distanceUnit": "meter"
     }, {
       "price": 234,
       "distance": 250,
-      "distanceUnit": "meter",
-      "pickupAddressId": 4040
+      "distanceUnit": "meter"
     }, {
       "price": 250,
       "distance": 268,
-      "distanceUnit": "meter",
-      "pickupAddressId": 4041
+      "distanceUnit": "meter"
     }]
   }
 }</code>
@@ -225,13 +222,24 @@
   "success": true,
   "result": {
     "order": {
-      "id": 33084,
+      "id": 33039,
       "assignments": [
         {
-          "id": 32290,
-          "job": [
+          "id": 32456,
+          "pickupAddress": [
             {
-              "id": 68803
+              "id": 27327
+            },
+            {
+              "id": 27328
+            },
+            {
+              "id": 27329
+            }
+          ],
+          "jobs": [
+            {
+              "id": 56014
             }
           ]
         }
@@ -620,8 +628,8 @@
         <h4 class="subtitle">Request</h4>
           <pre>
             <code class="json">{
-                      "pickupAnswer": "สินค้าไม่มี"
-                    }</code>
+  "pickupAnswer": "สินค้าไม่มี"
+}</code>
         </pre>
         <h4 class="subtitle">Response</h4>
           <pre>
